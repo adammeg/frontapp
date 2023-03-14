@@ -1,48 +1,28 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
 import "./styles/Home.css";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Register from "../src/componment/Register";
+import Login from "../src/componment/Login";
+import Acc from "../src/componment/Home";
+import Replies from "../src/componment/Replies";
 export default function Home() {
   return (
     <div className="container">
       <main className="main">
         <h1 className="title">
-          Welcome to <a href="https://thirdweb.com/">thirdweb</a>!
+          WELCOME TO MES CODE DIFITAUX
         </h1>
 
         <p className="description">
-          Get started by configuring your desired network in{" "}
-          <code className="code">src/index.tsx</code>, then modify the{" "}
-          <code className="code">src/App.tsx</code> file!
+          GET START YOUR NFT EXPERIENCE FROM HERE
         </p>
-
-        <div className="connect">
-          <ConnectWallet />
-        </div>
-
-        <div className="grid">
-          <a href="https://portal.thirdweb.com/" className="card">
-            <h2>Portal &rarr;</h2>
-            <p>
-              Guides, references and resources that will help you build with
-              thirdweb.
-            </p>
-          </a>
-
-          <a href="https://thirdweb.com/dashboard" className="card">
-            <h2>Dashboard &rarr;</h2>
-            <p>
-              Deploy, configure and manage your smart contracts from the
-              dashboard.
-            </p>
-          </a>
-
-          <a href="https://portal.thirdweb.com/templates" className="card">
-            <h2>Templates &rarr;</h2>
-            <p>
-              Discover and clone template projects showcasing thirdweb features.
-            </p>
-          </a>
-        </div>
+        <BrowserRouter>
+                <Routes>
+                    <Route path='/' element={<Login />} />
+                    <Route path='/register' element={<Register />} />
+                    <Route path='/dashboard' element={<Acc />} />
+                    <Route path='/:id/replies' element={<Replies />} />
+                </Routes>
+            </BrowserRouter>
       </main>
     </div>
   );
