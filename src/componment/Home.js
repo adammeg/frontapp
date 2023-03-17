@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Nav from "./Nav";
-import { Redirect } from "react-router-dom";
-import { ConnectWallet } from "@thirdweb-dev/react";
+//import Nav from "./Nav";
+import Navbar from "./navbarHome"
+
+
 const Home = () => { 
     const [thread, setThread] = useState("");
     const handleSubmit = (e) => {
@@ -11,7 +12,6 @@ const Home = () => {
     };
     return (
         <>
-            <Nav />
             <main className='home'>
                 <h2 className='homeTitle'>Create a Thread</h2>
                 <form className='homeForm' onSubmit={handleSubmit}>
@@ -24,7 +24,6 @@ const Home = () => {
                             value={thread}
                             onChange={(e) => setThread(e.target.value)}
                         />
-                        <ConnectWallet/>
                     </div>
                     <button className='homeBtn'>CREATE THREAD</button>
                 </form>
@@ -32,5 +31,4 @@ const Home = () => {
         </>
     );
 };
-
 export default Home;

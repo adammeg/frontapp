@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const [email, setEmail] = useState("adam.benhadjaissa@esprit.tn");
@@ -10,16 +12,19 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const notify = () => toast("wrong PASSWORD or E-MAIL !");
+        const notifyy = () => toast("WELCOME !");
         const mail = "adam.benhadjaissa@esprit.tn";
         const pass = "123456";
         console.log({ email, password });
         if (email === mail && password === pass) {
           setIsVerified(true); // Update state variable
+          notifyy()
           Navigate("/dashboard");
         } else {
           setIsVerified(false); // Update state variable
           Navigate("/");
-          alert("error login")
+          notify();
         }
       };
 
@@ -49,6 +54,7 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)} />
                     </div>
                     <button className="loginBtn">Login</button>
+                    <ToastContainer />
                     <p>
                         Don't have an account? <Link to='/register'>Create one</Link>
                     </p>
