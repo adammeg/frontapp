@@ -1,26 +1,45 @@
-import React, { useState } from "react";
-import "../styles/nav.css";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function Navbar() {
-  const [active, setActive] = useState("nav__menu");
-  const [icon, setIcon] = useState("nav__toggler");
-  const navToggle = () => {
-    if (active === "nav__menu") {
-      setActive("nav__menu nav__active");
-    } else setActive("nav__menu");
+const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // Icon Toggler
-    if (icon === "nav__toggler") {
-      setIcon("nav__toggler toggle");
-    } else setIcon("nav__toggler");
+  const handleLogout = () => {
+    // Code to handle logging out the user
+    setIsLoggedIn(false);
   };
+
   return (
-    <nav className="nav">
-      <a href="/" className="nav__brand">
-        Mes Codes Degitaux
-      </a>
+    <nav>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+        {isLoggedIn ? (
+          <>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/signup">Sign Up</Link>
+            </li>
+          </>
+        )}
+      </ul>
     </nav>
   );
-}
+};
 
 export default Navbar;
