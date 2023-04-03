@@ -23,15 +23,15 @@ const Login = () => {
         console.log({ email, password, address });
         if (email === mail && password === pass) {
             if (!address) {
-                setIsVerified(false); // Update state variable
+                setIsVerified(true); // Update state variable
                 Navigate("/");
-                localStorage.setItem('isConnected', false)
+                localStorage.setItem('isVerified', true)
 
                 notify();
             } else {
-                setIsVerified(true); // Update state variable
+                setIsVerified(false); // Update state variable
                 notifyy()
-                localStorage.setItem('isConnected', true)
+                localStorage.setItem('isVerified', false)
                 Navigate("/dashboard");
             }
         }
