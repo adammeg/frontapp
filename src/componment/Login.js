@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { json, Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAddress } from "@thirdweb-dev/react";
-
+import axios from "./axios"
 const Login = () => {
-    const [email, setEmail] = useState("adam.benhadjaissa@esprit.tn");
-    const [password, setPassword] = useState("123456");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [isVerified, setIsVerified] = useState(false);
     const Navigate = useNavigate();
 
@@ -14,27 +14,56 @@ const Login = () => {
     /* (!address) return <div>No wallet connected</div>;
      <div>My wallet address is {address}</div>; */
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const notify = () => toast("PLEASE VERIFY YOUR INFORMATIONS AND YOU CONNECT YOUR WALLET !");
         const notifyy = () => toast("WELCOME !");
-        const mail = "adam.benhadjaissa@esprit.tn";
-        const pass = "123456";
-        console.log({ email, password, address });
-        if (email === mail && password === pass) {
-            if (!address) {
-                setIsVerified(true); // Update state variable
-                Navigate("/");
-                localStorage.setItem('isVerified', true)
+        const notify = () => toast("PLEASE VERIFY YOUR INFORMATIONS AND YOU CONNECT YOUR WALLET !")
+        try {
 
-                notify();
-            } else {
-                setIsVerified(false); // Update state variable
+            let res = await axios.post("/auth/login", JSON.stringify({ email, password, address }),
+                { headers: { "Content-Type": "application/json" } })
+            console.log(res.status)
+            let data = res.data
+            console.log(JSON.stringify(data))
+            if (res.status === 201) {
                 notifyy()
-                localStorage.setItem('isVerified', false)
-                Navigate("/dashboard");
+                Navigate("/dashboard")
+                setIsVerified(true)
+                console.log(isVerified)
+            }
+
+        } catch (err) {
+            if (err.res?.status === 400) {
+                console.log("missing user name or pass")
+                notify()
+            } else if (err.res?.status === 401) {
+                console.log("missing user name or pass")
+                notify()
+            } else {
+                console.log("login faild")
+                notify()
             }
         }
+
+        /* const notify = () => toast("PLEASE VERIFY YOUR INFORMATIONS AND YOU CONNECT YOUR WALLET !");
+         const notifyy = () => toast("WELCOME !");
+         const mail = "adam.benhadjaissa@esprit.tn";
+         const pass = "123456";
+         console.log({ email, password, address });
+         if (email === mail && password === pass) {
+             if (!address) {
+                 setIsVerified(true); // Update state variable
+                 Navigate("/");
+                 localStorage.setItem('isVerified', true)
+ 
+                 notify();
+             } else {
+                 setIsVerified(false); // Update state variable
+                 notifyy()
+                 localStorage.setItem('isVerified', false)
+                 Navigate("/dashboard");
+             }
+         } */
     };
     return (
         <>

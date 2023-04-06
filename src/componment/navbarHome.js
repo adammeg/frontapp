@@ -7,8 +7,6 @@ function Navbar() {
   /**
    * Init const
    */
-  const isConnected = localStorage.getItem('isConnected')
-  console.log('-----', isConnected);
 
   return (
     <nav className="nav">
@@ -16,11 +14,6 @@ function Navbar() {
         Mes Codes Degitaux
       </a>
       <ConnectWallet />
-      {
-        isConnected === true && <a href="/" className="nav__brand">
-          Logout
-        </a>
-      }
 
     </nav>
   );
