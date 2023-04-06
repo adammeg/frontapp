@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAddress } from "@thirdweb-dev/react";
 import axios from "./axios";
 const Register = () => {
     const [name, setUsername] = useState("");
@@ -10,21 +11,25 @@ const Register = () => {
     const Navigate = useNavigate()
     const notifyy = () => toast("WELCOME !", name);
     const notify = () => toast("PLEASE VERIFY YOUR INFORMATIONS AND YOU CONNECT YOUR WALLET !")
+    const walletnotify = () => toast("CONNECT YOU WALLET PLEASE !");
+    const address = useAddress()
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("/auth/signup", JSON.stringify({ name, email, password }), {
+            const res = await axios.post("/auth/signup", JSON.stringify({ name, email, password, address }), {
                 headers: { "Content-Type": "application/json" }
             })
-            console.log({ name, email, password });
+            console.log({ name, email, password, address });
             console.log(res?.status)
-            if (res?.status === 201) {
-                notifyy()
-                setEmail("");
-                setUsername("");
-                setPassword("");
-                Navigate("/")
+            if (address != null){
+                if (res?.status === 201) {
+                    notifyy()
+                    Navigate("/")
+                }
+            }else{
+                walletnotify()
             }
+
         } catch (err) {
             if (!err?.res) {
                 console.log("No Server res");
@@ -77,7 +82,9 @@ const Register = () => {
                     <button className='registerBtn'>REGISTER</button>
                     <p>
                         Have an account? <Link to='/'>Sign in</Link>
+                        <ToastContainer />
                     </p>
+                    
                 </form>
             </div>
         </main>
