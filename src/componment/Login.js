@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAddress } from "@thirdweb-dev/react";
 import axios from "./axios"
 const Login = () => {
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState(localStorage.getItem('email'));
     const [password, setPassword] = useState("");
     var [isVerified, setIsVerified] = useState(false);
     const Navigate = useNavigate();

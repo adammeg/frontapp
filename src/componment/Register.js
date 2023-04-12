@@ -5,8 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAddress } from "@thirdweb-dev/react";
 import axios from "./axios";
 const Register = () => {
-    const [name, setUsername] = useState("");
-    const [email, setEmail] = useState("");
+    const [name, setUsername] = useState(localStorage.getItem('name'));
+    const [email, setEmail] = useState(localStorage.getItem("email"));
     const [password, setPassword] = useState("");
     const Navigate = useNavigate()
     const notifyy = () => toast("WELCOME !", name);
