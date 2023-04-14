@@ -13,17 +13,13 @@ function User() {
         Navigate("/")
     }, [])
 
-
-
-    return (
-        <div>
-            <h1>User Details</h1>
-            <p>Email and name parameters saved to local storage</p>
-        </div>
-    );
+return (
+<>
+</>
+);
 }
 
 export default User;
 
 
-//   http://localhost:3000/url?email=johndoe@example.com&name=John%20Doe   //
+//   http://localhost:3000/url?email=johndoe@example.com&name=John%20Doe&advantages=free%20google%20card   //

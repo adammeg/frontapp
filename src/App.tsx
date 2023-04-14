@@ -9,20 +9,20 @@ import User from "./componment/url"
 export default function Home() {
   return (
     <>
-      <Navbar/>
-    <div className="container">
-      <main className="main">
-        <BrowserRouter>
-                <Routes>
-                    <Route path='/' element={<Login />} />
-                    <Route path='/url' element={<User />} />
-                    <Route path='/register' element={<Register />} />
-                    <Route path='/dashboard' element={<Acc />} />
-                    <Route path='/:id/replies' element={<Replies />} />
-                </Routes>
-            </BrowserRouter>
-      </main>
-    </div>
+      <Navbar />
+      <div className="container">
+        <main className="main">
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Login />} />
+              <Route path='/url' element={<User />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/dashboard' element={<Acc />} />
+              <Route path='/:id/replies' element={<Replies />} />
+            </Routes>
+          </BrowserRouter>
+        </main>
+      </div>
     </>
   );
 }

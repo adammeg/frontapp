@@ -7,7 +7,8 @@ import axios from "./axios"
 const Login = () => {
     const [email, setEmail] = useState(localStorage.getItem('email'));
     const [password, setPassword] = useState("");
-    var [isVerified, setIsVerified] = useState(false);
+    var isVerified = false
+    var token = 0
     const Navigate = useNavigate();
     const address = useAddress();
 
@@ -24,7 +25,9 @@ const Login = () => {
                 let data = res.data
                 console.log(JSON.stringify(data))
                 if (res.status === 201) {
-                    setIsVerified(!isVerified)
+                    token = data
+                    isVerified = true
+                    localStorage.setItem('isVerified', true)
                     Navigate("/dashboard")
                     console.log(isVerified, "////")
                 }

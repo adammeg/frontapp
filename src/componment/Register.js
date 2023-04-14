@@ -12,6 +12,7 @@ const Register = () => {
     const notifyy = () => toast("WELCOME !", name);
     const notify = () => toast("PLEASE VERIFY YOUR INFORMATIONS AND YOU CONNECT YOUR WALLET !")
     const walletnotify = () => toast("CONNECT YOU WALLET PLEASE !");
+    const duplicatenotify = () => toast("THIS E-MAIL ALREDY HAVE AN ACCOUNT !");
     const address = useAddress()
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,18 +22,19 @@ const Register = () => {
             })
             console.log({ name, email, password, address });
             console.log(res?.status)
-            if (address != null){
+            if (address != null) {
                 if (res?.status === 201) {
                     notifyy()
                     Navigate("/")
                 }
-            }else{
+            } else {
                 walletnotify()
             }
 
         } catch (err) {
-            if (!err?.res) {
-                console.log("No Server res");
+            if (err.res?.status === 500) {
+                duplicatenotify()
+                console.log("user existant");
             } else if (err.res?.status === 409) {
                 console.log("Username Taken");
                 notify()
@@ -84,7 +86,6 @@ const Register = () => {
                         Have an account? <Link to='/'>Sign in</Link>
                         <ToastContainer />
                     </p>
-                    
                 </form>
             </div>
         </main>
