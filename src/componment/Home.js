@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./navbarHome"
 import { useContract, useNFTBalance, useMintNFT, useAddress, Web3Button, useMetamask, useDisconnect, useNetworkMismatch, useNetwork, ThirdwebNftMedia } from "@thirdweb-dev/react";
 import "@thirdweb-dev/contracts/extension/ContractMetadata.sol";
 import { abi } from "./abi"
@@ -12,6 +13,7 @@ const Home = () => {
   const { NFTBalance } = useNFTBalance(contract, address)
   return (
     <>
+
       <Web3Button
         contractAbi={abi}
         contractAddress={contractAddress}
@@ -26,7 +28,7 @@ const Home = () => {
           })
         }
       >
-        Mint an NFT!
+        Creer votre carte 
       </Web3Button>
     </>
   );

@@ -8,12 +8,20 @@ function Navbar() {
   /**
    * Init const
    */
-  const [isConnected, setIsConnected] = useState(false)
+  var isConnected = false
 
+  const clear = (() => {
+    localStorage.clear()
+  })
+  
   useEffect(() => {
-    const isVerified = localStorage.getItem("isVerified");
+    const isVerified = localStorage.getItem("token");
     console.log("isVerified", isVerified);
-    setIsConnected(Boolean(isVerified));
+    if (isVerified === null){
+      isConnected = false
+    }else{
+      isConnected = true
+    }
   }, []);
 
   console.log("isConnected", isConnected);
@@ -25,16 +33,18 @@ function Navbar() {
       </a>
       <ConnectWallet />
       {isConnected ? (
-          <>
-            
-          </>
-        ) : (
-          <>
+        <>
+<li>
+            <a href="/" onClick={clear()}  >Logout 1</a>
+          </li>
+        </>
+      ) : (
+        <>
           <li>
-              <button>Logout</button>
-            </li>
-          </>
-        )}
+            <a href="/" onClick={clear()}  >Logout 2</a>
+          </li>
+        </>
+      )}
     </nav>
   );
 }

@@ -12,14 +12,11 @@ function User() {
         localStorage.setItem('advantages', advantages);
         Navigate("/")
     }, [])
+    return (
+        <>
 
-return (
-<>
-</>
-);
+        </>
+    );
 }
-
 export default User;
-
-
 //   http://localhost:3000/url?email=johndoe@example.com&name=John%20Doe&advantages=free%20google%20card   //
